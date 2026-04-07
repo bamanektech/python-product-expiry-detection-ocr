@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Application</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">OCR Application</h1>
+        <form action="/process-image/" method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit">Upload and Process</button>
+        </form>
+        <div class="result-container">
+            {% if image_url %}
+            <div class="image-container">
+                <h2>Uploaded Image:</h2>
+                <img src="{{ image_url }}" alt="Uploaded Image" height="200" width="200">
+            </div>
+            {% endif %}
+
+            {% if easyocr_result or paddleocr_result or tesseract_result %}
+            <div class="results">
+
+                <div class="result-section">
+                    <h3 class="result-title">Extracted Date</h3>
+                    <p>{{ extracted_date }}</p>
+                </div>
+                <div class="result-section">
+                    <h3 class="result-title">PaddleOCR Result:</h3>
+                    <p>{{ paddleocr_result }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+
+</html>
